@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#101b1b">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Projeto Ironman">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="apple-touch-icon" href="icon-192.png">
+  <title>Projeto Ironman</title>
+  <style>
+    :root{--bg:#101b1b;--panel:#192827;--panel2:#213431;--line:#304744;--text:#f3f6ef;--muted:#aabbb2;--accent:#c5ed79;--accent2:#e0f4b8;--warn:#f5c66b}
+    *{box-sizing:border-box} body{margin:0;background:linear-gradient(160deg,#142321,#0d1717 65%);color:var(--text);font:16px/1.45 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+    header{padding:30px 20px 20px;max-width:900px;margin:auto} .eyebrow{color:var(--accent);font-size:12px;letter-spacing:.16em;text-transform:uppercase;font-weight:700}
+    h1{font-size:32px;line-height:1.05;margin:8px 0} .sub{color:var(--muted);margin:8px 0 0}
+    main{max-width:900px;margin:auto;padding:0 16px 48px} .hero{background:linear-gradient(135deg,#243b35,#1a2927);border:1px solid var(--line);border-radius:22px;padding:20px;margin-bottom:16px}
+    .hero-top{display:flex;justify-content:space-between;gap:12px;align-items:center}.pill{font-size:11px;border:1px solid #536e54;color:var(--accent2);border-radius:30px;padding:6px 10px;white-space:nowrap}
+    .progress{height:9px;background:#344541;border-radius:20px;overflow:hidden;margin:14px 0 7px}.bar{height:100%;width:0;background:var(--accent);transition:width .2s}
+    .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:16px}.stat{background:#152321;border-radius:14px;padding:12px}.stat b{display:block;font-size:21px}.stat span{font-size:11px;color:var(--muted)}
+    nav{display:flex;gap:8px;overflow:auto;padding:4px 0 14px;position:sticky;top:0;background:#101b1b;z-index:2}
+    nav button,.action{border:1px solid var(--line);background:var(--panel);color:var(--text);border-radius:12px;padding:10px 14px;font-weight:650}
+    nav button.active,.action.primary{background:var(--accent);color:#17211a;border-color:var(--accent)}
+    section.panel{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:17px;margin-bottom:14px}
+    h2{font-size:19px;margin:0 0 5px} .hint{color:var(--muted);font-size:13px;margin:0 0 14px}
+    .day{border-top:1px solid var(--line);padding:14px 0}.day:first-of-type{border-top:0}.dayhead{display:flex;justify-content:space-between;gap:10px;align-items:center}.dayhead strong{font-size:15px}.date{color:var(--muted);font-size:12px}
+    label.task{display:flex;gap:10px;align-items:flex-start;padding:8px 0;color:#e8eee8;font-size:14px}.task input{accent-color:var(--accent);width:19px;height:19px;margin:0;flex:none}
+    textarea,input[type=text]{width:100%;background:#101b1b;border:1px solid var(--line);border-radius:11px;color:var(--text);padding:11px;font:inherit}
+    textarea{min-height:90px;resize:vertical;margin-top:7px}.field{margin:12px 0}.field label{font-size:13px;color:var(--muted)}
+    .actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.action{cursor:pointer}.action:active{transform:scale(.98)}
+    .notice{border-left:3px solid var(--warn);padding:10px 12px;background:#30291c;border-radius:8px;color:#f5e7c8;font-size:13px;margin-top:12px}
+    .empty{color:var(--muted);font-size:14px}.footer{color:var(--muted);font-size:12px;text-align:center;padding:18px}
+    .hidden{display:none!important}
+    @media(min-width:700px){header{padding-top:42px}.grid2{display:grid;grid-template-columns:1.15fr .85fr;gap:14px}.grid2 section{margin-bottom:0}}
+  </style>
+</head>
+<body>
+<header>
+  <div class="eyebrow">Sua jornada começa aqui</div>
+  <h1>Projeto Ironman</h1>
+  <p class="sub">Consistência primeiro. Um passo de cada vez.</p>
+</header>
+<main>
+  <div class="hero">
+    <div class="hero-top"><div><div class="eyebrow">Semana 01 · Preparação</div><div style="font-size:20px;font-weight:750;margin-top:4px">11 a 17 de novembro</div></div><span class="pill">FASE DE ORGANIZAÇÃO</span></div>
+    <div class="progress"><div class="bar" id="progressBar"></div></div>
+    <div style="font-size:12px;color:var(--muted)" id="progressText">0 de 7 tarefas concluídas</div>
+    <div class="stats">
+      <div class="stat"><b id="doneCount">0</b><span>TAREFAS FEITAS</span></div>
+      <div class="stat"><b>3–4</b><span>DIAS/SEMANA · META FUTURA</span></div>
+      <div class="stat"><b>1º</b><span>OBJETIVO: CONSISTÊNCIA</span></div>
+    </div>
+  </div>
+  <nav>
+    <button class="active" data-tab="agenda">Agenda</button>
+    <button data-tab="diario">Diário</button>
+    <button data-tab="metas">Metas</button>
+  </nav>
+  <div id="agenda" class="tab">
+    <section class="panel">
+      <h2>Seu calendário</h2><p class="hint">Marque cada tarefa quando concluir. Seu progresso fica salvo neste aparelho.</p>
+      <div id="days"></div>
+      <div class="notice"><b>Importante:</b> esta semana é somente de preparação. Não inicie treinos físicos estruturados até passar por avaliação cardiológica atualizada e receber liberação médica para exercício, considerando o histórico de sopro cardíaco.</div>
+    </section>
+  </div>
+  <div id="diario" class="tab hidden">
+    <section class="panel">
+      <h2>Diário da jornada</h2><p class="hint">Registre como foi seu dia, sem cobrança por desempenho.</p>
+      <div class="field"><label for="entryDate">Data</label><input id="entryDate" type="text" value="11/11/2026"></div>
+      <div class="field"><label for="energy">Energia, sono, observações e próximos passos</label><textarea id="energy" placeholder="Como você está se sentindo? O que conseguiu organizar hoje?"></textarea></div>
+      <div class="actions"><button class="action primary" id="saveEntry">Salvar anotação</button></div>
+      <div id="savedEntries" style="margin-top:15px"></div>
+    </section>
+  </div>
+  <div id="metas" class="tab hidden">
+    <section class="panel">
+      <h2>O caminho até o Ironman</h2><p class="hint">As etapas serão ajustadas conforme sua avaliação médica, adaptação e evolução.</p>
+      <ol style="padding-left:20px;color:#e7eee7">
+        <li><b>Organização e avaliação médica</b><br><span class="hint">Etapa atual: criar rotina e obter liberação.</span></li>
+        <li><b>Construir consistência e base física</b><br><span class="hint">Somente após liberação médica.</span></li>
+        <li><b>Triathlon Sprint e Olímpico</b></li>
+        <li><b>Meio Ironman (70.3)</b></li>
+        <li><b>Ironman completo</b><br><span class="hint">3,8 km de natação · 180 km de ciclismo · 42,2 km de corrida.</span></li>
+      </ol>
+      <div class="notice">A meta é de longo prazo. Segurança, progressão gradual e acompanhamento profissional vêm antes de volume ou intensidade.</div>
+    </section>
+  </div>
+  <div class="footer">Projeto pessoal · Seus registros são armazenados localmente neste navegador.</div>
+</main>
+<script>
+const plan=[
+ {day:"Quarta-feira",date:"11/11",tasks:["Escolher três horários possíveis para atividades futuras."]},
+ {day:"Quinta-feira",date:"12/11",tasks:["Agendar avaliação com cardiologista e procurar exames cardíacos antigos."]},
+ {day:"Sexta-feira",date:"13/11",tasks:["Conhecer os equipamentos da academia e separar toalha, garrafa e acessórios."]},
+ {day:"Sábado",date:"14/11",tasks:["Definir horários fixos possíveis e reservar esses períodos na agenda de trabalho."]},
+ {day:"Domingo",date:"15/11",tasks:["Revisar a semana e organizar os compromissos da próxima."]},
+ {day:"Segunda-feira",date:"16/11",tasks:["Conferir o agendamento médico e registrar como estão energia e sono."]},
+ {day:"Terça-feira",date:"17/11",tasks:["Revisar o que foi concluído e anotar dúvidas ou dificuldades para a próxima semana."]}
+];
+const $=s=>document.querySelector(s);
+const load=(k,d)=>{try{return JSON.parse(localStorage.getItem(k))??d}catch{return d}};
+let checks=load("ironman-checks",{});
+function render(){
+ const root=$("#days");root.innerHTML="";
+ plan.forEach((d,i)=>{const wrap=document.createElement("div");wrap.className="day";
+ const head=document.createElement("div");head.className="dayhead";head.innerHTML=`<strong>${d.day}</strong><span class="date">${d.date}/2026</span>`;wrap.append(head);
+ d.tasks.forEach((t,j)=>{const l=document.createElement("label");l.className="task";const cb=document.createElement("input");cb.type="checkbox";cb.checked=!!checks[i+"-"+j];cb.addEventListener("change",()=>{checks[i+"-"+j]=cb.checked;localStorage.setItem("ironman-checks",JSON.stringify(checks));updateProgress()});const span=document.createElement("span");span.textContent=t;l.append(cb,span);wrap.append(l)});root.append(wrap)});
+ updateProgress();
+}
+function updateProgress(){let n=Object.values(checks).filter(Boolean).length;$("#doneCount").textContent=n;$("#progressText").textContent=`${n} de 7 tarefas concluídas`;$("#progressBar").style.width=(n/7*100)+"%"}
+document.querySelectorAll("nav button").forEach(b=>b.addEventListener("click",()=>{document.querySelectorAll("nav button").forEach(x=>x.classList.toggle("active",x===b));document.querySelectorAll(".tab").forEach(x=>x.classList.toggle("hidden",x.id!==b.dataset.tab))}));
+let entries=load("ironman-entries",[]);
+function showEntries(){const box=$("#savedEntries");box.innerHTML="";if(!entries.length){box.innerHTML='<p class="empty">Suas anotações aparecerão aqui.</p>';return}entries.slice().reverse().forEach(e=>{const d=document.createElement("div");d.className="day";const b=document.createElement("b");b.textContent=e.date;const p=document.createElement("p");p.style.whiteSpace="pre-wrap";p.textContent=e.text;d.append(b,p);box.append(d)})}
+$("#saveEntry").addEventListener("click",()=>{const text=$("#energy").value.trim();if(!text)return;entries.push({date:$("#entryDate").value,text});localStorage.setItem("ironman-entries",JSON.stringify(entries));$("#energy").value="";showEntries()});
+render();showEntries();
+if("serviceWorker" in navigator && location.protocol.startsWith("http")) navigator.serviceWorker.register("./sw.js").catch(()=>{});
+</script>
+</body></html>

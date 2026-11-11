@@ -1,0 +1,17 @@
+PROJETO IRONMAN — PRIMEIRA VERSÃO
+
+Conteúdo:
+- index.html: aplicativo responsivo com agenda, checklist, diário e metas.
+- manifest.webmanifest e sw.js: suporte básico a instalação como PWA.
+- ícones PNG.
+
+Como publicar para instalar no iPhone:
+1. Hospede todos os arquivos em um endereço HTTPS (por exemplo, um serviço de hospedagem estática).
+2. Abra o endereço no Safari do iPhone.
+3. Toque em Compartilhar > Adicionar à Tela de Início.
+4. Abra pelo novo ícone.
+
+Os registros usam armazenamento local do navegador/aparelho. Limpar os dados do Safari pode apagá-los; esta versão ainda não sincroniza entre aparelhos.
+
+SEGURANÇA:
+A agenda inicial é apenas organizacional. Não iniciar treinos estruturados até avaliação cardiológica atualizada e liberação médica.
